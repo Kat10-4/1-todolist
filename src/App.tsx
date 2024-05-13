@@ -28,13 +28,8 @@ function App() {
     )
 
     //change logic
-    const removeTask = (taskId: string) => {
-        //filter tasks
-        const newTasks = tasks.filter(el => el.id !== taskId)
-        //send a new data to React
-        setTasks(newTasks)
-    }
 
+    //C-create
     const addTask = (title: string) => {
         //create new task
         // const newTask: TaskType =
@@ -46,6 +41,29 @@ function App() {
         //send a new data to React
         setTasks([{id: v1(), title: title, isDone: false}, ...tasks])
     }
+
+    //U-update by ID
+    const changeTaskStatus = (taskID: string, newIsDoneValue:boolean) => {
+        // const taskForUpdate: TaskType | undefined = tasks.find(t => t.id === taskID)
+        // if (taskForUpdate) {
+        //     taskForUpdate.isDone = !taskForUpdate.isDone //change for opposite
+        // }
+        // setTasks([...tasks])
+
+        const nextState: Array<TaskType> = tasks.map(t => t.id === taskID ? {...t, isDone: newIsDoneValue} : t)
+        setTasks(nextState)
+
+    }
+
+
+    //D-delete
+    const removeTask = (taskId: string) => {
+        //filter tasks
+        const newTasks = tasks.filter(el => el.id !== taskId)
+        //send a new data to React
+        setTasks(newTasks)
+    }
+
 
     //UI
     return (
@@ -59,6 +77,7 @@ function App() {
                 removeTask={removeTask}
                 //changeFilter={changeFilter}
                 addTask={addTask}
+                changeTaskStatus={changeTaskStatus}
             />
             {/*ToDoList()- launch function*/}
         </div>
